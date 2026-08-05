@@ -5,6 +5,9 @@ import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { cn } from '../../utils/helpers';
 
+// Import images
+import authIllustration from '../../assets/images/auth-illustration.png';
+
 // ============================================
 // Page Transition Variants
 // ============================================
@@ -143,6 +146,20 @@ export const AuthLayout: React.FC = () => (
               </motion.div>
             ))}
           </div>
+        </motion.div>
+
+        {/* Illustration Image */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-10"
+        >
+          <img
+            src={authIllustration}
+            alt="Blood Donation App"
+            className="w-full max-w-sm mx-auto rounded-2xl shadow-2xl"
+          />
         </motion.div>
 
         {/* Decorative Elements */}

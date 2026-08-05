@@ -33,6 +33,13 @@ import {
 } from '../data/mockData';
 import type { BloodGroup } from '../types';
 
+// Import local images
+import heroImage from '../assets/images/hero-donation.png';
+import teamImage from '../assets/images/team-medical.png';
+import impactImage from '../assets/images/impact-lives.png';
+import bloodUnitImage from '../assets/images/blood-unit.png';
+import hospitalImage from '../assets/images/hospital-building.png';
+
 // ============================================
 // Landing Page
 // ============================================
@@ -196,7 +203,7 @@ export const LandingPage: React.FC = () => {
                 {/* Main Image Container */}
                 <div className="relative z-10">
                   <img
-                    src="https://images.unsplash.com/photo-1615461066841-6116e610584f?w=600&h=700&fit=crop"
+                    src={heroImage}
                     alt="Blood Donation Hero"
                     className="rounded-3xl shadow-2xl w-full object-cover"
                     style={{ height: '600px' }}

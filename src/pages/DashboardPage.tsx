@@ -24,6 +24,9 @@ import { BloodGroupBadge } from '../components/ui/Badge';
 import { Avatar } from '../components/ui/Avatar';
 import { cn } from '../utils/helpers';
 
+// Import images
+import dashboardHeader from '../assets/images/dashboard-header.png';
+
 // ============================================
 // Dashboard Page (Role-based)
 // ============================================
@@ -122,9 +125,12 @@ const DonorDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="container-custom mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      {/* Header with Background Image */}
+      <div className="relative bg-white border-b border-gray-200 overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <img src={dashboardHeader} alt="" className="w-full h-full object-cover" />
+        </div>
+        <div className="container-custom mx-auto px-4 sm:px-6 lg:px-8 py-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
