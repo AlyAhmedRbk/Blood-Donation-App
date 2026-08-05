@@ -17,6 +17,14 @@ import { RequestFeedPage } from './pages/RequestFeedPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { DonorCardPage } from './pages/DonorCardPage';
 
+// New Full Pages
+import { AboutPage } from './pages/AboutPage';
+import { ContactPage } from './pages/ContactPage';
+import { SettingsPage } from './pages/SettingsPage';
+import { NotificationsPage } from './pages/NotificationsPage';
+import { CreateRequestPage } from './pages/CreateRequestPage';
+import { DonationHistoryPage } from './pages/DonationHistoryPage';
+
 // Hooks
 import { useAuth } from './hooks';
 
@@ -136,10 +144,17 @@ const NotFoundPage: React.FC = () => (
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      {/* Public Routes */}
+      {/* ==================== PUBLIC ROUTES ==================== */}
+      
+      {/* Landing Page */}
       <Route path="/" element={<MainLayout><LandingPage /></MainLayout>} />
       
-      {/* Auth Routes */}
+      {/* Static Pages (Public) */}
+      <Route path="/about" element={<MainLayout><AboutPage /></MainLayout>} />
+      <Route path="/contact" element={<MainLayout><ContactPage /></MainLayout>} />
+
+      {/* ==================== AUTH ROUTES ==================== */}
+      
       <Route element={<AuthLayout />}>
         <Route
           path="/login"
@@ -167,7 +182,9 @@ const AppRoutes: React.FC = () => {
         />
       </Route>
 
-      {/* Protected Routes */}
+      {/* ==================== PROTECTED ROUTES ==================== */}
+      
+      {/* Dashboard Routes */}
       <Route
         path="/dashboard"
         element={
@@ -211,7 +228,7 @@ const AppRoutes: React.FC = () => {
         }
       />
 
-      {/* Feature Routes */}
+      {/* Request Feed & Management */}
       <Route
         path="/requests"
         element={
@@ -224,7 +241,7 @@ const AppRoutes: React.FC = () => {
         path="/requests/new"
         element={
           <ProtectedRoute allowedRoles={['recipient', 'hospital']}>
-            <div className="min-h-screen bg-gray-50 pt-18"><CreateRequestPlaceholder /></div>
+            <CreateRequestPage />
           </ProtectedRoute>
         }
       />
@@ -255,43 +272,92 @@ const AppRoutes: React.FC = () => {
         }
       />
 
-      {/* Placeholder Pages */}
+      {/* Settings & Notifications */}
       <Route
-        path="/appointments/*"
-        element={<PlaceholderPage title="Appointments" description="Appointment management coming soon!" />}
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <SettingsPage />
+          </ProtectedRoute>
+        }
       />
       <Route
         path="/notifications"
-        element={<PlaceholderPage title="Notifications" description="Notification center coming soon!" />}
+        element={
+          <ProtectedRoute>
+            <NotificationsPage />
+          </ProtectedRoute>
+        }
       />
+
+      {/* Donation History (Donors only) */}
       <Route
-        path="/settings"
-        element={<PlaceholderPage title="Settings" description="Settings page coming soon!" />}
+        path="/donations/history"
+        element={
+          <ProtectedRoute allowedRoles={['donor']}>
+            <DonationHistoryPage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* ==================== PLACEHOLDER ROUTES ==================== */}
+      
+      <Route
+        path="/appointments/*"
+        element={
+          <MainLayout>
+            <PlaceholderPage 
+              title="Appointments" 
+              description="Appointment management coming soon! Schedule your next donation appointment here."
+              icon="📅"
+            />
+          </MainLayout>
+        }
       />
       <Route
         path="/analytics"
         element={
           <ProtectedRoute allowedRoles={['admin', 'hospital']}>
-            <PlaceholderPage title="Analytics" description="Analytics dashboard coming soon!" />
+            <MainLayout>
+              <PlaceholderPage 
+                title="Analytics" 
+                description="Analytics dashboard coming soon! View detailed statistics and insights."
+                icon="📊"
+              />
+            </MainLayout>
           </ProtectedRoute>
         }
       />
       <Route
         path="/map"
-        element={<PlaceholderPage title="Map View" description="Interactive map coming soon!" />}
+        element={
+          <MainLayout>
+            <PlaceholderPage 
+              title="Map View" 
+              description="Interactive map of blood banks and hospitals coming soon!"
+              icon="🗺️"
+            />
+          </MainLayout>
+        }
       />
       <Route
         path="/eligibility"
-        element={<PlaceholderPage title="Eligibility Checker" description="Eligibility checker coming soon!" />}
+        element={
+          <MainLayout>
+            <PlaceholderPage 
+              title="Eligibility Checker" 
+              description="Check your eligibility for blood donation coming soon!"
+              icon="✅"
+            />
+          </MainLayout>
+        }
       />
 
-      {/* Static Pages */}
-      <Route path="/about" element={<StaticPage title="About Us" />} />
-      <Route path="/contact" element={<StaticPage title="Contact Us" />} />
-      <Route path="/privacy" element={<StaticPage title="Privacy Policy" />} />
-      <Route path="/terms" element={<StaticPage title="Terms of Service" />} />
+      {/* Legal Pages */}
+      <Route path="/privacy" element={<MainLayout><StaticPage title="Privacy Policy" /></MainLayout>} />
+      <Route path="/terms" element={<MainLayout><StaticPage title="Terms of Service" /></MainLayout>} />
 
-      {/* 404 Catch-all */}
+      {/* ==================== 404 CATCH-ALL ==================== */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
@@ -304,34 +370,28 @@ const AppRoutes: React.FC = () => {
 interface PlaceholderPageProps {
   title: string;
   description: string;
+  icon?: string;
 }
 
 const PlaceholderPage: React.FC<PlaceholderPageProps> = ({
   title,
   description,
+  icon = '🚧',
 }) => (
-  <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+  <div className="min-h-[60vh] bg-gray-50 flex items-center justify-center px-4 py-16">
     <div className="text-center max-w-md">
-      <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-        <span className="text-4xl">🚧</span>
+      <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-8 text-5xl">
+        {icon}
       </div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">{title}</h1>
-      <p className="text-gray-500">{description}</p>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">{title}</h1>
+      <p className="text-gray-500 text-lg mb-8">{description}</p>
+      <Button onClick={() => window.history.back()}>Go Back</Button>
     </div>
   </div>
 );
 
-const CreateRequestPlaceholder: React.FC = () => (
-  <div className="container-custom mx-auto px-4 py-8">
-    <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">Create Blood Request</h1>
-      <PlaceholderPage
-        title="Coming Soon"
-        description="The blood request creation form is under development. Please check back later!"
-      />
-    </div>
-  </div>
-);
+// Import Button component for placeholder page
+import { Button } from './components/ui/Button';
 
 // ============================================
 // Static Page Component
@@ -347,9 +407,22 @@ const StaticPage: React.FC<StaticPageProps> = ({ title }) => (
       <div className="container-custom mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-8">{title}</h1>
         <div className="max-w-3xl prose prose-lg">
-          <p className="text-gray-600">
-            This page is currently being built. Check back soon for more information about {title.toLowerCase()}.
+          <p className="text-gray-600 leading-relaxed">
+            This page is currently being updated with comprehensive information about {title.toLowerCase()}. 
+            Please check back soon or contact us at{' '}
+            <a href="mailto:support@lifeblood.com" className="text-primary hover:text-primary-dark">
+              support@lifeblood.com
+            </a>{' '}
+            for immediate assistance.
           </p>
+          
+          <div className="mt-8 p-6 bg-red-50 border border-red-200 rounded-xl">
+            <h3 className="font-semibold text-red-800 mb-2">Need Help?</h3>
+            <p className="text-red-700 text-sm">
+              If you have urgent questions about blood donation or requests, please call our 24/7 hotline:{' '}
+              <strong>1-800-LIFEBLOOD</strong>.
+            </p>
+          </div>
         </div>
       </div>
     </div>
