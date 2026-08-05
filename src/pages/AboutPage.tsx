@@ -28,6 +28,9 @@ import {
 import { Button } from '../components/ui/Button';
 import { Card, CardBody } from '../components/ui/Card';
 
+// Import AI-generated images
+import missionImage from '../assets/images/ai-generated/about-mission-ai.png';
+
 // ============================================
 // About Page - Professional Enhanced Version
 // ============================================
@@ -358,7 +361,13 @@ export const AboutPage: React.FC = () => {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="relative"
             >
-              <div className="bg-gradient-to-br from-red-600 via-red-700 to-red-800 rounded-3xl p-8 lg:p-10 text-white relative overflow-hidden shadow-2xl shadow-red-900/30">
+              <div 
+                className="rounded-3xl p-8 lg:p-10 text-white relative overflow-hidden shadow-2xl shadow-red-900/30 min-h-[400px] bg-cover bg-center"
+                style={{ backgroundImage: `url(${missionImage})` }}
+              >
+                {/* Dark Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-red-600/90 via-red-700/85 to-red-800/90" />
+                
                 {/* Pattern Overlay */}
                 <div className="absolute inset-0 opacity-10">
                   <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">

@@ -34,11 +34,11 @@ import {
 import type { BloodGroup } from '../types';
 
 // Import local images
-import heroImage from '../assets/images/hero-donation.png';
-import teamImage from '../assets/images/team-medical.png';
-import impactImage from '../assets/images/impact-lives.png';
+import heroImage from '../assets/images/ai-generated/hero-ai.png';
+import teamImage from '../assets/images/ai-generated/about-team-ai.png';
+import impactImage from '../assets/images/ai-generated/impact-lives-ai.png';
 import bloodUnitImage from '../assets/images/blood-unit.png';
-import hospitalImage from '../assets/images/hospital-building.png';
+import hospitalImage from '../assets/images/ai-generated/hospital-partnership-ai.png';
 
 // ============================================
 // Landing Page

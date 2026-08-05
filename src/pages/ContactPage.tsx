@@ -23,6 +23,9 @@ import { Card, CardBody } from '../components/ui/Card';
 import { Input } from '../components/ui/Input';
 import { Textarea } from '../components/ui/Textarea';
 
+// Import AI-generated images
+import contactImage from '../assets/images/ai-generated/contact-support-ai.png';
+
 // ============================================
 // Contact Page - Professional Enhanced Version
 // ============================================
@@ -156,8 +159,18 @@ export const ContactPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* ===== Hero Section ===== */}
-      <section className="relative pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden bg-gradient-to-br from-red-600 via-red-700 to-red-800">
+      {/* ===== Hero Section with Image ===== */}
+      <section className="relative pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0">
+          <img 
+            src={contactImage} 
+            alt="Professional healthcare support" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-red-600/95 via-red-700/90 to-red-800/95" />
+        </div>
+        
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
